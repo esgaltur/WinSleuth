@@ -26,18 +26,20 @@ impl HeuristicRule for MonitoringConflictRule {
 pub struct UnsignedDriverRule;
 impl HeuristicRule for UnsignedDriverRule {
     fn evaluate(&self, report: &DiagnosticReport) -> Option<SuspectedCause> {
+        // Only flag unsigned third-party drivers, not Windows OS drivers
+        // OS drivers are trusted by default and handled by Windows
         let unsigned_drivers: Vec<_> = report.drivers.iter()
-            .filter(|d| !d.signed)
+            .filter(|d| !d.signed && !d.is_os_driver)
             .collect();
 
         if !unsigned_drivers.is_empty() {
             Some(SuspectedCause {
-                title: "Unsigned Kernel Drivers Detected".to_string(),
+                title: "Unsigned Third-Party Drivers Detected".to_string(),
                 score: 60.0,
                 confidence: ConfidenceLevel::Low,
                 evidence: unsigned_drivers.iter().map(|d| d.name.clone()).collect(),
-                explanation: "Unsigned drivers bypass standard Windows security and stability checks. They are more likely to cause instability.".to_string(),
-                recommendation: "Ensure all drivers are up-to-date and provided by the official manufacturer.".to_string(),
+                explanation: "Unsigned third-party drivers bypass standard Windows security and stability checks. They are more likely to cause instability.".to_string(),
+                recommendation: "Ensure all third-party drivers are up-to-date and provided by the official manufacturer. Consider updating or removing unsigned drivers.".to_string(),
             })
         } else {
             None
@@ -158,7 +160,12 @@ fn get_bugcheck_name(code: u32) -> &'static str {
         0x139 => "KERNEL_SECURITY_CHECK_FAILURE",
         0x141 => "VIDEO_ENGINE_TIMEOUT_DETECTED",
         0x154 => "UNEXPECTED_STORE_EXCEPTION",
+        0x155 => "SYSTEM_MEMORY_STATE_INVALID",
+        0x159 => "SOCKET_NO_LONGER_AVAILABLE",
+        0x161 => "TIMER_OR_DPC_INVALID",
         0x162 => "KERNEL_AUTO_BOOST_INVALID_LOCK_RELEASE",
+        0x163 => "SESSION_HAS_INVALID_POOL_MONITORS",
+        0x164 => "PROCESS_ATTACH_NOT_CALLED",
         0x192 => "KERNEL_AUTO_BOOST_LOCK_ACQUISITION_WITH_RAISED_IRQL",
         0x1A1 => "WIN32K_POWER_WATCHDOG_TIMEOUT",
         _ => "Unknown BugCheck",

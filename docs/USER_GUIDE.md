@@ -1,4 +1,4 @@
-# WinSleuth User Guide
+it seems false posiit# WinSleuth User Guide
 
 WinSleuth is a powerful diagnostic tool designed to help you identify the root causes of Windows system instability. Whether you're dealing with Blue Screens of Death (BSOD), random freezes, or hardware-related errors, WinSleuth can help you find the culprit.
 
@@ -96,6 +96,10 @@ When you run a `scan`, WinSleuth provides a "Suspected Causes" section. Each cau
 - **Evidence:** The specific technical detail (e.g., "Event ID 6008", "Unsigned Driver: RGB_Sync.sys").
 - **Confidence:** A score (0-10) indicating how likely this is the primary cause of your issues.
 - **Description:** A human-readable explanation of why this is a concern.
+
+### About Driver Signatures
+
+WinSleuth only reports **unsigned third-party drivers** as potential issues. Windows system drivers in `C:\Windows\System32\drivers` are trusted by default and are automatically excluded from the report. If a driver from a known manufacturer (GPU, chipset, motherboard utilities, etc.) is reported as unsigned, it should be updated to the latest signed version from the manufacturer.
 
 ## 6. Troubleshooting
 
