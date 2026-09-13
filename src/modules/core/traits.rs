@@ -1,37 +1,59 @@
-use crate::modules::*;
+use crate::modules::core::models::*;
 
-pub trait SystemInventoryProvider {
-    fn collect_system_identity(&self) -> SystemIdentity;
+/// Every provider is `Send + Sync` so the engine can fan collection out across
+/// threads. Each implementation creates its own WMI/COM connection, so they are
+/// safe to run concurrently.
+pub trait SystemInventoryProvider: Send + Sync {
+    fn collect_system_identity(&self) -> Collected<SystemIdentity>;
 }
 
-pub trait FirmwareInventoryProvider {
-    fn collect_firmware_info(&self) -> FirmwareInfo;
+pub trait FirmwareInventoryProvider: Send + Sync {
+    fn collect_firmware_info(&self) -> Collected<FirmwareInfo>;
 }
 
-pub trait DriverInventoryProvider {
-    fn collect_drivers(&self) -> Vec<DriverInfo>;
+pub trait DriverInventoryProvider: Send + Sync {
+    fn collect_drivers(&self) -> Collected<Vec<DriverInfo>>;
 }
 
-pub trait EventLogProvider {
-    fn collect_events(&self) -> Vec<EventRecord>;
+pub trait EventLogProvider: Send + Sync {
+    fn name(&self) -> &'static str;
+    fn collect_events(&self, window: &ScanWindow) -> Collected<Vec<EventRecord>>;
 }
 
-pub trait DeviceInspectorProvider {
-    fn collect_device_problems(&self) -> Vec<DeviceState>;
+pub trait DeviceInspectorProvider: Send + Sync {
+    fn collect_device_problems(&self) -> Collected<Vec<DeviceState>>;
 }
 
-pub trait ServiceProvider {
-    fn collect_problematic_services(&self) -> Vec<ServiceState>;
+pub trait ServiceProvider: Send + Sync {
+    fn collect_problematic_services(&self, window: &ScanWindow) -> Collected<Vec<ServiceState>>;
 }
 
-pub trait ChangeProvider {
-    fn collect_recent_changes(&self, days: i64) -> Vec<SystemChange>;
+pub trait ChangeProvider: Send + Sync {
+    fn collect_recent_changes(&self, window: &ScanWindow) -> Collected<Vec<SystemChange>>;
 }
 
-pub trait MinidumpProvider {
-    fn parse_minidumps(&self) -> Vec<CrashRecord>;
+pub trait MinidumpProvider: Send + Sync {
+    /// `modules` is the current inventory, available for enrichment only.
+    /// Kernel attribution must use the module map saved in the dump: neither
+    /// current addresses nor the dump file's modification time prove boot identity.
+    fn parse_minidumps(
+        &self,
+        window: &ScanWindow,
+        modules: &[DriverInfo],
+    ) -> Collected<Vec<CrashRecord>>;
 }
 
-pub trait HeuristicRule {
-    fn evaluate(&self, report: &DiagnosticReport) -> Option<SuspectedCause>;
+pub trait SecurityPostureProvider: Send + Sync {
+    fn collect_posture(&self) -> Collected<SecurityPosture>;
+}
+
+/// A heuristic rule. Returns *findings*, not finished causes: the engine merges
+/// findings that share a `RootCause` so corroborating rules reinforce one
+/// verdict instead of producing several competing ones.
+///
+/// Returning a `Vec` also lets one rule report several distinct instances —
+/// two failing disks are two findings, not one merged sentence.
+pub trait HeuristicRule: Send + Sync {
+    fn name(&self) -> &'static str;
+    fn evaluate(&self, report: &DiagnosticReport) -> Vec<Finding>;
 }

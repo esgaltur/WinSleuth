@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WinSleuth — WORKBENCH</title>
+<style>
+:root {
+  --ground: #f6f7f9; --surface: #fff; --sunk: #eef1f5;
+  --ink: #151a22; --muted: #5b6675; --faint: #8b95a3;
+  --rule: #dce2e9; --accent: #1b4f9c;
+  --certain: #a32118; --high: #96590f; --moderate: #3f6485; --low: #6b7280;
+  --ok: #1c6a4e; --bad: #a32118;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #0e1218; --surface: #151b23; --sunk: #1a212b;
+    --ink: #e3e8ef; --muted: #97a3b2; --faint: #6e7b8b;
+    --rule: #26303c; --accent: #74aaf2;
+    --certain: #f08c80; --high: #e0a85f; --moderate: #92b6d8; --low: #8b95a3;
+    --ok: #63c098; --bad: #f08c80;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--ground); color: var(--ink);
+  font: 15px/1.6 "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+main { max-width: 60rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+header { border-bottom: 2px solid var(--ink); padding-bottom: 1.5rem; }
+.eyebrow {
+  margin: 0; font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted);
+}
+h1 { margin: .25rem 0 1rem; font-size: clamp(1.9rem, 5vw, 2.8rem); letter-spacing: -.02em; }
+h2 {
+  font-size: 1.3rem; letter-spacing: -.015em; margin: 0 0 1rem;
+  padding-bottom: .4rem; border-bottom: 1px solid var(--rule);
+}
+h3 { margin: 0; font-size: 1.05rem; letter-spacing: -.01em; }
+h4 { margin: 0 0 .3rem; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+section { margin-top: 2.75rem; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: .5rem 1.5rem; margin: 0; }
+.facts div { display: flex; gap: .5rem; align-items: baseline; }
+.facts dt { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--faint); min-width: 8.5rem; }
+.facts dd { margin: 0; }
+.dim { color: var(--muted); }
+.ok { color: var(--ok); font-weight: 600; }
+.bad > td:first-child, .bad { color: var(--bad); }
+.warn {
+  margin: 1.25rem 0 0; padding: .8rem 1rem; border-left: 3px solid var(--high);
+  background: var(--sunk); border-radius: 2px;
+}
+.empty { color: var(--muted); }
+.lede { font-size: 1.05rem; }
+.count { font-size: .8rem; color: var(--muted); font-weight: 400; }
+.cause {
+  background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--low);
+  border-radius: 3px; padding: 1.1rem 1.25rem; margin-bottom: 1rem;
+}
+.cause.certain { border-left-color: var(--certain); }
+.cause.high { border-left-color: var(--high); }
+.cause.moderate { border-left-color: var(--moderate); }
+.cause-head { display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap; margin-bottom: .5rem; }
+.rank { font-variant-numeric: tabular-nums; color: var(--faint); font-weight: 600; }
+.cause-head h3 { flex: 1; min-width: 14rem; }
+.badge {
+  font-size: .64rem; letter-spacing: .11em; text-transform: uppercase; font-weight: 700;
+  padding: .15rem .45rem; border-radius: 2px; background: var(--sunk);
+}
+.certain .badge { color: var(--certain); }
+.high .badge { color: var(--high); }
+.moderate .badge { color: var(--moderate); }
+.low .badge { color: var(--low); }
+.score { font-variant-numeric: tabular-nums; font-weight: 600; color: var(--muted); }
+.cause p { margin: 0 0 .7rem; }
+details { margin: .6rem 0; }
+summary { cursor: pointer; font-size: .8rem; color: var(--accent); }
+.evidence { margin: .5rem 0 0; padding-left: 1.1rem; font-size: .92rem; }
+.evidence li { margin-bottom: .2rem; }
+time { font-family: ui-monospace, Consolas, monospace; font-size: .82rem; color: var(--faint); }
+.action { background: var(--sunk); border-radius: 2px; padding: .75rem .9rem; margin-top: .8rem; }
+.commands { list-style: none; margin: .5rem 0 0; padding: 0; }
+.commands li { display: flex; flex-direction: column; gap: .1rem; margin-bottom: .5rem; }
+code {
+  font-family: ui-monospace, Consolas, monospace; font-size: .85rem;
+  background: var(--surface); padding: .25rem .45rem; border-radius: 2px;
+  border: 1px solid var(--rule); overflow-wrap: anywhere;
+}
+.commands .dim { font-size: .78rem; }
+.rules { font-size: .76rem; color: var(--faint); margin: .7rem 0 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+th, td { text-align: left; padding: .45rem .7rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
+thead th {
+  font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); background: var(--sunk);
+}
+tr.detail td { font-size: .85rem; color: var(--muted); background: var(--sunk); }
+.mono { font-family: ui-monospace, Consolas, monospace; font-size: .84rem; }
+ul { padding-left: 1.2rem; }
+</style>
+</head>
+<body>
+<main><header>
+<p class="eyebrow">WinSleuth report</p>
+<h1>WORKBENCH</h1>
+<dl class="facts"><div><dt>System</dt><dd>Windows 11 Pro <span class="dim">10.0.26100</span></dd></div><div><dt>Board</dt><dd>ASUSTeK COMPUTER INC. TUF GAMING X570-PRO</dd></div><div><dt>Processor</dt><dd>AMD Ryzen 9 3900 12-Core Processor</dd></div><div><dt>Memory</dt><dd>32 GB</dd></div><div><dt>Firmware</dt><dd>American Megatrends Inc. 4021 <span class="dim">2021-08-10</span></dd></div><div><dt>Window</dt><dd>2026-08-31 06:37 → 2026-09-07 06:37 <span class="dim">(7 days)</span></dd></div></dl>
+
+</header>
+<section><h2>Ranked causes</h2><article class="cause certain"><div class="cause-head"><span class="rank">1</span><h3>Uncorrected hardware errors reported (WHEA)</h3><span class="badge">Certain</span><span class="score">99</span></div><p>The processor reported hardware errors it could not correct. These come from the CPU, memory controller or a PCIe link, and are not caused by software. The processor reported an uncorrectable hardware error. This is a CPU, memory or bus fault, not a software bug. Recorded 2 time(s). The installed firmware (American Megatrends Inc., version 4021) is about 4.1 years old, and this machine is reporting hardware-level errors. Memory compatibility and stability fixes are delivered through firmware updates.</p><details open><summary>Evidence</summary><ul class="evidence"><li>2 uncorrected and 1 corrected hardware error(s)</li><li>BIOS 4021 dated 2021-08-10</li><li><time>2026-09-07 00:37</time> Microsoft-Windows-WHEA-Logger event 17: Microsoft-Windows-WHEA-Logger reported event 17.</li><li><time>2026-09-05 06:37</time> Microsoft-Windows-WHEA-Logger event 18: Microsoft-Windows-WHEA-Logger reported event 18.</li><li><time>2026-09-05 06:37</time> 0x00000124 (WHEA_UNCORRECTABLE_ERROR) parameters 0x0, 0x0, 0x0, 0x0</li></ul></details><div class="action"><h4>What to do</h4><p>Return CPU and memory to stock settings, including XMP/EXPO, and retest. If errors persist at stock, test memory with a dedicated pass and check that the BIOS is current.</p><ul class="commands"><li><code>wmic bios get smbiosbiosversion</code><span class="dim">Check current BIOS version</span></li><li><code>mdsched.exe</code><span class="dim">Run Windows memory diagnostic</span></li></ul></div><p class="rules">Corroborated by WheaRule, BugCheckRule, FirmwareAgeRule</p></article><article class="cause high"><div class="cause-head"><span class="rank">2</span><h3>Known-vulnerable driver loaded: RTCore64.sys</h3><span class="badge">High</span><span class="score">87</span></div><p>This driver is signed and therefore loads normally, but exposes privileged memory, MSR or port I/O access to any user-mode process. Such drivers are routinely brought along by attackers specifically to disable security software from the kernel, and they are a common source of instability in their own right. The mitigations that would block a known-vulnerable driver from loading are disabled on this machine, and such a driver is loaded right now.</p><details open><summary>Evidence</summary><ul class="evidence"><li>RTCore64.sys at C:\Windows\System32\drivers\RTCore64.sys</li><li>RTCore64.sys (MSI / RivaTuner Statistics Server) exposes arbitrary kernel memory read/write and MSR access from user mode. Loaded builds of this driver are routinely used to disable security software and escalate to kernel. Note this match is by file name — a patched build may carry the same name.</li><li>Referenced as CVE-2019-16098</li><li>Memory Integrity (HVCI) is switched off, so nothing prevents this driver being loaded and abused.</li><li>Memory Integrity (HVCI) is off</li><li>the Microsoft vulnerable driver blocklist is off</li></ul></details><div class="action"><h4>What to do</h4><p>Uninstall the software that installed this driver if you do not need it, and switch on Memory Integrity so Windows blocks known-vulnerable drivers.</p><ul class="commands"><li><code>Set-ItemProperty &#39;HKLM:\SYSTEM\CurrentControlSet\Control\CI\Config&#39; -Name VulnerableDriverBlocklistEnable -Value 1</code><span class="dim">Turn on the vulnerable driver blocklist</span></li><li><code>start windowsdefender://coreisolation</code><span class="dim">Open Core Isolation settings</span></li></ul></div><p class="rules">Corroborated by VulnerableDriverRule, SecurityPostureRule</p></article><article class="cause high"><div class="cause-head"><span class="rank">3</span><h3>Storage errors on \Device\Harddisk1\DR1</h3><span class="badge">High</span><span class="score">77</span></div><p>The storage stack logged controller resets, bad blocks or timeouts. This is a strong indicator of a failing drive, a marginal cable, or a power delivery problem — and it can corrupt data silently before it stops the machine.</p><details open><summary>Evidence</summary><ul class="evidence"><li><time>2026-09-07 02:37</time> Disk event 7 (bad block)</li></ul></details><div class="action"><h4>What to do</h4><p>Back up anything irreplaceable before troubleshooting further. Then check the drive&#39;s SMART health and run a file system check.</p><ul class="commands"><li><code>Get-PhysicalDisk | Select FriendlyName, HealthStatus, OperationalStatus</code><span class="dim">Check disk health</span></li><li><code>Get-StorageReliabilityCounter -PhysicalDisk (Get-PhysicalDisk)</code><span class="dim">Read SMART reliability counters</span></li><li><code>chkdsk C: /scan</code><span class="dim">Check the file system</span></li></ul></div><p class="rules">Corroborated by DiskErrorRule</p></article><article class="cause moderate"><div class="cause-head"><span class="rank">4</span><h3>2 tools competing for hardware sensor access</h3><span class="badge">Moderate</span><span class="score">64</span></div><p>Several drivers are polling the same SMBus/I2C sensor interfaces. These buses do not arbitrate between independent readers, so simultaneous polling causes stalls, dropped transactions and — on some boards — hard hangs.</p><details open><summary>Evidence</summary><ul class="evidence"><li>HWiNFO64A.SYS [Monitoring] from REALiX</li><li>RTCore64.sys [Monitoring] from MSI</li></ul></details><div class="action"><h4>What to do</h4><p>Keep one monitoring or lighting utility and close the rest, then retest. This is free to try and rules the whole class out quickly.</p></div><p class="rules">Corroborated by SensorContentionRule</p></article><article class="cause moderate"><div class="cause-head"><span class="rank">5</span><h3>1 device(s) reporting a fault</h3><span class="badge">Moderate</span><span class="score">60</span></div><p>These devices are present but not working. A device that cannot start or that its driver has failed can stall the bus it sits on and take the rest of the system with it.</p><details open><summary>Evidence</summary><ul class="evidence"><li>USB Root Hub (USB 3.0) — Code 43 [PCI\VEN_TEST&amp;DEV_002B]</li></ul></details><div class="action"><h4>What to do</h4><p>Work through each device in Device Manager: reinstall its driver, then reseat or disconnect the hardware to see whether stability returns.</p><ul class="commands"><li><code>devmgmt.msc</code><span class="dim">Open Device Manager</span></li></ul></div><p class="rules">Corroborated by DeviceProblemRule</p></article></section><section><h2>When it changed</h2><p class="lede">Stable for 4 days until 5 Sep 2026. 2 of 2 crashes fall on or after it. No recorded system change lines up with that date.</p></section><section><h2>System crashes</h2><div class="scroll"><table><thead><tr><th>When</th><th>Stop code</th><th>Culprit</th><th>Basis</th></tr></thead><tbody><tr><td class="mono">2026-09-05 06:37</td><td class="mono">0x00000124 WHEA_UNCORRECTABLE_ERROR</td><td><span class="dim">not established</span></td><td class="dim">no culprit could be established</td></tr><tr><td class="mono">2026-09-06 06:37</td><td class="mono">0x00000124 WHEA_UNCORRECTABLE_ERROR</td><td><span class="dim">not established</span></td><td class="dim">no culprit could be established</td></tr></tbody></table></div></section><section><h2>Kernel protections</h2><dl class="facts"><div><dt>Memory Integrity (HVCI)</dt><dd class="bad">Off</dd></div><div><dt>Vulnerable driver blocklist</dt><dd class="bad">Off</dd></div><div><dt>Secure Boot</dt><dd class="ok">On</dd></div><div><dt>Virtualisation-based security</dt><dd class="ok">On</dd></div></dl></section><section><h2>Device problems</h2><div class="scroll"><table><thead><tr><th>Device</th><th>Problem</th><th>Instance</th></tr></thead><tbody><tr class="bad"><td>USB Root Hub (USB 3.0)</td><td>Code 43</td><td class="mono dim">PCI\VEN_TEST&amp;DEV_002B</td></tr></tbody></table></div></section><section><h2>Third-party kernel drivers <span class="count">3</span></h2><div class="scroll"><table><thead><tr><th>Driver</th><th>Category</th><th>Publisher</th><th>Version</th><th>Signature</th></tr></thead><tbody><tr class=""><td class="mono">nvlddmkm.sys</td><td>Graphics</td><td>NVIDIA Corporation</td><td class="mono">1.2.3.4</td><td class="dim">embedded (NVIDIA Corporation)</td></tr><tr class=""><td class="mono">HWiNFO64A.SYS</td><td>Monitoring</td><td>REALiX</td><td class="mono">1.2.3.4</td><td class="dim">embedded (REALiX)</td></tr><tr class="bad"><td class="mono">RTCore64.sys</td><td>Monitoring</td><td>MSI</td><td class="mono">1.2.3.4</td><td class="dim">embedded (MSI)</td></tr><tr class="detail"><td colspan="5"><strong>Known vulnerable</strong> — matched on file name (CVE-2019-16098). RTCore64.sys (MSI / RivaTuner Statistics Server) exposes arbitrary kernel memory read/write and MSR access from user mode. Loaded builds of this driver are routinely used to disable security software and escalate to kernel. Note this match is by file name — a patched build may carry the same name.</td></tr></tbody></table></div><p class="dim">4 Microsoft-signed operating system drivers were checked and are not listed.</p></section><section><h2>Scan coverage</h2><p class="empty">Everything was collected successfully.</p><p class="dim">9 events, 7 drivers, 2 crash dump(s) examined. Generated 2026-09-07 06:37 UTC.</p></section></main>
+</body>
+</html>

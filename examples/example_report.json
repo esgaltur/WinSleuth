@@ -1,0 +1,559 @@
+{
+  "generated_at": "2026-09-07T06:37:03.962676600Z",
+  "scan_window": {
+    "since": "2026-08-31T06:37:03.962658100Z",
+    "until": "2026-09-07T06:37:03.962658100Z"
+  },
+  "elevated": true,
+  "system": {
+    "hostname": "WORKBENCH",
+    "os_caption": "Windows 11 Pro",
+    "os_build": "10.0.26100",
+    "motherboard_vendor": "ASUSTeK COMPUTER INC.",
+    "motherboard_model": "TUF GAMING X570-PRO",
+    "cpu_model": "AMD Ryzen 9 3900 12-Core Processor",
+    "physical_memory_gb": 32.0,
+    "last_boot": "2026-09-05T06:37:03.962674800Z"
+  },
+  "firmware": {
+    "vendor": "American Megatrends Inc.",
+    "version": "4021",
+    "date": "2021-08-10",
+    "release_date": "2022-07-30T06:37:03.962630100Z"
+  },
+  "security": {
+    "hvci_enabled": false,
+    "vbs_enabled": true,
+    "driver_blocklist_enabled": false,
+    "test_signing": false,
+    "secure_boot": true,
+    "kernel_dma_protection": true
+  },
+  "crashes": [
+    {
+      "timestamp": "2026-09-05T06:37:03.962630100Z",
+      "bugcheck_code": 292,
+      "bugcheck_name": "WHEA_UNCORRECTABLE_ERROR",
+      "parameters": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "faulting_module": null,
+      "faulting_address": null,
+      "attribution": "Undetermined",
+      "dump_path": "C:\\Windows\\Minidump\\090526-01.dmp",
+      "source": "KernelDump"
+    },
+    {
+      "timestamp": "2026-09-06T06:37:03.962630100Z",
+      "bugcheck_code": 292,
+      "bugcheck_name": "WHEA_UNCORRECTABLE_ERROR",
+      "parameters": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "faulting_module": null,
+      "faulting_address": null,
+      "attribution": "Undetermined",
+      "dump_path": "C:\\Windows\\Minidump\\090626-01.dmp",
+      "source": "KernelDump"
+    }
+  ],
+  "drivers": [
+    {
+      "name": "ntoskrnl.exe",
+      "path": "C:\\Windows\\System32\\drivers\\ntoskrnl.exe",
+      "version": "10.0.26100.1",
+      "publisher": "ntoskrnl.exe",
+      "description": "Loaded kernel module: ntoskrnl.exe",
+      "company": "Microsoft Corporation",
+      "hash": null,
+      "base_address": 18446735277633306624,
+      "size": 9437184,
+      "signature": {
+        "Catalog": {
+          "signer": "Microsoft Windows Publisher"
+        }
+      },
+      "is_os_driver": true,
+      "category": "Other",
+      "vulnerability": null
+    },
+    {
+      "name": "afd.sys",
+      "path": "C:\\Windows\\System32\\drivers\\afd.sys",
+      "version": "10.0.26100.1",
+      "publisher": "afd.sys",
+      "description": "Loaded kernel module: afd.sys",
+      "company": "Microsoft Corporation",
+      "hash": null,
+      "base_address": 18446735277650083840,
+      "size": 393216,
+      "signature": {
+        "Catalog": {
+          "signer": "Microsoft Windows Publisher"
+        }
+      },
+      "is_os_driver": true,
+      "category": "Other",
+      "vulnerability": null
+    },
+    {
+      "name": "beep.sys",
+      "path": "C:\\Windows\\System32\\drivers\\beep.sys",
+      "version": "10.0.26100.1",
+      "publisher": "beep.sys",
+      "description": "Loaded kernel module: beep.sys",
+      "company": "Microsoft Corporation",
+      "hash": null,
+      "base_address": 18446735277666861056,
+      "size": 32768,
+      "signature": {
+        "Catalog": {
+          "signer": "Microsoft Windows Publisher"
+        }
+      },
+      "is_os_driver": true,
+      "category": "Other",
+      "vulnerability": null
+    },
+    {
+      "name": "bam.sys",
+      "path": "C:\\Windows\\System32\\drivers\\bam.sys",
+      "version": "10.0.26100.1",
+      "publisher": "bam.sys",
+      "description": "Loaded kernel module: bam.sys",
+      "company": "Microsoft Corporation",
+      "hash": null,
+      "base_address": 18446735277667909632,
+      "size": 65536,
+      "signature": {
+        "Catalog": {
+          "signer": "Microsoft Windows Publisher"
+        }
+      },
+      "is_os_driver": true,
+      "category": "Other",
+      "vulnerability": null
+    },
+    {
+      "name": "nvlddmkm.sys",
+      "path": "C:\\Windows\\System32\\drivers\\nvlddmkm.sys",
+      "version": "1.2.3.4",
+      "publisher": "nvlddmkm.sys",
+      "description": "Loaded kernel module: nvlddmkm.sys",
+      "company": "NVIDIA Corporation",
+      "hash": null,
+      "base_address": 18446735277683638272,
+      "size": 25165824,
+      "signature": {
+        "Embedded": {
+          "signer": "NVIDIA Corporation"
+        }
+      },
+      "is_os_driver": false,
+      "category": "Graphics",
+      "vulnerability": null
+    },
+    {
+      "name": "HWiNFO64A.SYS",
+      "path": "C:\\Windows\\System32\\drivers\\HWiNFO64A.SYS",
+      "version": "1.2.3.4",
+      "publisher": "HWiNFO64A.SYS",
+      "description": "Loaded kernel module: HWiNFO64A.SYS",
+      "company": "REALiX",
+      "hash": null,
+      "base_address": 18446735277717192704,
+      "size": 36864,
+      "signature": {
+        "Embedded": {
+          "signer": "REALiX"
+        }
+      },
+      "is_os_driver": false,
+      "category": "Monitoring",
+      "vulnerability": null
+    },
+    {
+      "name": "RTCore64.sys",
+      "path": "C:\\Windows\\System32\\drivers\\RTCore64.sys",
+      "version": "1.2.3.4",
+      "publisher": "RTCore64.sys",
+      "description": "Loaded kernel module: RTCore64.sys",
+      "company": "MSI",
+      "hash": null,
+      "base_address": 18446735277750747136,
+      "size": 32768,
+      "signature": {
+        "Embedded": {
+          "signer": "MSI"
+        }
+      },
+      "is_os_driver": false,
+      "category": "Monitoring",
+      "vulnerability": {
+        "matched_on": "file name",
+        "category": "known-vulnerable driver",
+        "cves": [
+          "CVE-2019-16098"
+        ],
+        "description": "RTCore64.sys (MSI / RivaTuner Statistics Server) exposes arbitrary kernel memory read/write and MSR access from user mode. Loaded builds of this driver are routinely used to disable security software and escalate to kernel. Note this match is by file name — a patched build may carry the same name."
+      }
+    }
+  ],
+  "device_problems": [
+    {
+      "name": "USB Root Hub (USB 3.0)",
+      "device_id": "PCI\\VEN_TEST&DEV_002B",
+      "problem_code": 43,
+      "problem_name": "the driver reported a failure and Windows stopped the device",
+      "status": "Code 43"
+    }
+  ],
+  "service_problems": [],
+  "recent_changes": [],
+  "suspected_causes": [
+    {
+      "id": "hardware-error",
+      "title": "Uncorrected hardware errors reported (WHEA)",
+      "score": 98.61198,
+      "confidence": "Certain",
+      "evidence": [
+        {
+          "detail": "2 uncorrected and 1 corrected hardware error(s)",
+          "timestamp": null,
+          "source": null
+        },
+        {
+          "detail": "BIOS 4021 dated 2021-08-10",
+          "timestamp": null,
+          "source": null
+        },
+        {
+          "detail": "Microsoft-Windows-WHEA-Logger event 17: Microsoft-Windows-WHEA-Logger reported event 17.",
+          "timestamp": "2026-09-07T00:37:03.962630100Z",
+          "source": "System"
+        },
+        {
+          "detail": "Microsoft-Windows-WHEA-Logger event 18: Microsoft-Windows-WHEA-Logger reported event 18.",
+          "timestamp": "2026-09-05T06:37:03.962630100Z",
+          "source": "System"
+        },
+        {
+          "detail": "0x00000124 (WHEA_UNCORRECTABLE_ERROR) parameters 0x0, 0x0, 0x0, 0x0",
+          "timestamp": "2026-09-05T06:37:03.962630100Z",
+          "source": "C:\\Windows\\Minidump\\090526-01.dmp"
+        }
+      ],
+      "explanation": "The processor reported hardware errors it could not correct. These come from the CPU, memory controller or a PCIe link, and are not caused by software. The processor reported an uncorrectable hardware error. This is a CPU, memory or bus fault, not a software bug. Recorded 2 time(s). The installed firmware (American Megatrends Inc., version 4021) is about 4.1 years old, and this machine is reporting hardware-level errors. Memory compatibility and stability fixes are delivered through firmware updates.",
+      "recommendation": "Return CPU and memory to stock settings, including XMP/EXPO, and retest. If errors persist at stock, test memory with a dedicated pass and check that the BIOS is current.",
+      "commands": [
+        {
+          "label": "Check current BIOS version",
+          "command": "wmic bios get smbiosbiosversion"
+        },
+        {
+          "label": "Run Windows memory diagnostic",
+          "command": "mdsched.exe"
+        }
+      ],
+      "contributing_rules": [
+        "WheaRule",
+        "BugCheckRule",
+        "FirmwareAgeRule"
+      ]
+    },
+    {
+      "id": "vulnerable-driver",
+      "title": "Known-vulnerable driver loaded: RTCore64.sys",
+      "score": 87.2,
+      "confidence": "High",
+      "evidence": [
+        {
+          "detail": "RTCore64.sys at C:\\Windows\\System32\\drivers\\RTCore64.sys",
+          "timestamp": null,
+          "source": "file name"
+        },
+        {
+          "detail": "RTCore64.sys (MSI / RivaTuner Statistics Server) exposes arbitrary kernel memory read/write and MSR access from user mode. Loaded builds of this driver are routinely used to disable security software and escalate to kernel. Note this match is by file name — a patched build may carry the same name.",
+          "timestamp": null,
+          "source": null
+        },
+        {
+          "detail": "Referenced as CVE-2019-16098",
+          "timestamp": null,
+          "source": null
+        },
+        {
+          "detail": "Memory Integrity (HVCI) is switched off, so nothing prevents this driver being loaded and abused.",
+          "timestamp": null,
+          "source": null
+        },
+        {
+          "detail": "Memory Integrity (HVCI) is off",
+          "timestamp": null,
+          "source": null
+        },
+        {
+          "detail": "the Microsoft vulnerable driver blocklist is off",
+          "timestamp": null,
+          "source": null
+        }
+      ],
+      "explanation": "This driver is signed and therefore loads normally, but exposes privileged memory, MSR or port I/O access to any user-mode process. Such drivers are routinely brought along by attackers specifically to disable security software from the kernel, and they are a common source of instability in their own right. The mitigations that would block a known-vulnerable driver from loading are disabled on this machine, and such a driver is loaded right now.",
+      "recommendation": "Uninstall the software that installed this driver if you do not need it, and switch on Memory Integrity so Windows blocks known-vulnerable drivers.",
+      "commands": [
+        {
+          "label": "Turn on the vulnerable driver blocklist",
+          "command": "Set-ItemProperty 'HKLM:\\SYSTEM\\CurrentControlSet\\Control\\CI\\Config' -Name VulnerableDriverBlocklistEnable -Value 1"
+        },
+        {
+          "label": "Open Core Isolation settings",
+          "command": "start windowsdefender://coreisolation"
+        }
+      ],
+      "contributing_rules": [
+        "VulnerableDriverRule",
+        "SecurityPostureRule"
+      ]
+    },
+    {
+      "id": "storage-failure",
+      "title": "Storage errors on \\Device\\Harddisk1\\DR1",
+      "score": 76.88579,
+      "confidence": "High",
+      "evidence": [
+        {
+          "detail": "Disk event 7 (bad block)",
+          "timestamp": "2026-09-07T02:37:03.963074200Z",
+          "source": null
+        }
+      ],
+      "explanation": "The storage stack logged controller resets, bad blocks or timeouts. This is a strong indicator of a failing drive, a marginal cable, or a power delivery problem — and it can corrupt data silently before it stops the machine.",
+      "recommendation": "Back up anything irreplaceable before troubleshooting further. Then check the drive's SMART health and run a file system check.",
+      "commands": [
+        {
+          "label": "Check disk health",
+          "command": "Get-PhysicalDisk | Select FriendlyName, HealthStatus, OperationalStatus"
+        },
+        {
+          "label": "Read SMART reliability counters",
+          "command": "Get-StorageReliabilityCounter -PhysicalDisk (Get-PhysicalDisk)"
+        },
+        {
+          "label": "Check the file system",
+          "command": "chkdsk C: /scan"
+        }
+      ],
+      "contributing_rules": [
+        "DiskErrorRule"
+      ]
+    },
+    {
+      "id": "sensor-contention",
+      "title": "2 tools competing for hardware sensor access",
+      "score": 64.0,
+      "confidence": "Moderate",
+      "evidence": [
+        {
+          "detail": "HWiNFO64A.SYS [Monitoring] from REALiX",
+          "timestamp": null,
+          "source": null
+        },
+        {
+          "detail": "RTCore64.sys [Monitoring] from MSI",
+          "timestamp": null,
+          "source": null
+        }
+      ],
+      "explanation": "Several drivers are polling the same SMBus/I2C sensor interfaces. These buses do not arbitrate between independent readers, so simultaneous polling causes stalls, dropped transactions and — on some boards — hard hangs.",
+      "recommendation": "Keep one monitoring or lighting utility and close the rest, then retest. This is free to try and rules the whole class out quickly.",
+      "commands": [],
+      "contributing_rules": [
+        "SensorContentionRule"
+      ]
+    },
+    {
+      "id": "device-instability",
+      "title": "1 device(s) reporting a fault",
+      "score": 60.000004,
+      "confidence": "Moderate",
+      "evidence": [
+        {
+          "detail": "USB Root Hub (USB 3.0) — Code 43 [PCI\\VEN_TEST&DEV_002B]",
+          "timestamp": null,
+          "source": null
+        }
+      ],
+      "explanation": "These devices are present but not working. A device that cannot start or that its driver has failed can stall the bus it sits on and take the rest of the system with it.",
+      "recommendation": "Work through each device in Device Manager: reinstall its driver, then reseat or disconnect the hardware to see whether stability returns.",
+      "commands": [
+        {
+          "label": "Open Device Manager",
+          "command": "devmgmt.msc"
+        }
+      ],
+      "contributing_rules": [
+        "DeviceProblemRule"
+      ]
+    }
+  ],
+  "timeline": [
+    {
+      "source": "DCOM",
+      "channel": "System",
+      "event_id": 10016,
+      "timestamp": "2026-09-03T06:37:03.962674800Z",
+      "level": "Error",
+      "message": "DCOM reported event 10016."
+    },
+    {
+      "source": "Application Error",
+      "channel": "System",
+      "event_id": 1000,
+      "timestamp": "2026-09-04T06:37:03.962674800Z",
+      "level": "Error",
+      "message": "Application Error reported event 1000."
+    },
+    {
+      "source": "DCOM",
+      "channel": "System",
+      "event_id": 10016,
+      "timestamp": "2026-09-06T06:37:03.962674800Z",
+      "level": "Error",
+      "message": "DCOM reported event 10016."
+    },
+    {
+      "source": "Microsoft-Windows-WHEA-Logger",
+      "channel": "System",
+      "event_id": 18,
+      "timestamp": "2026-09-05T06:37:03.962630100Z",
+      "level": "Error",
+      "message": "Microsoft-Windows-WHEA-Logger reported event 18."
+    },
+    {
+      "source": "Microsoft-Windows-WHEA-Logger",
+      "channel": "System",
+      "event_id": 18,
+      "timestamp": "2026-09-06T06:37:03.962630100Z",
+      "level": "Error",
+      "message": "Microsoft-Windows-WHEA-Logger reported event 18."
+    },
+    {
+      "source": "Microsoft-Windows-WHEA-Logger",
+      "channel": "System",
+      "event_id": 17,
+      "timestamp": "2026-09-07T00:37:03.962630100Z",
+      "level": "Warning",
+      "message": "Microsoft-Windows-WHEA-Logger reported event 17."
+    },
+    {
+      "source": "Disk",
+      "channel": "System",
+      "event_id": 7,
+      "timestamp": "2026-09-07T02:37:03.963074200Z",
+      "level": "Error",
+      "message": "The device, \\Device\\Harddisk1\\DR1, has a bad block."
+    },
+    {
+      "source": "Disk",
+      "channel": "System",
+      "event_id": 7,
+      "timestamp": "2026-09-06T12:37:03.963074200Z",
+      "level": "Error",
+      "message": "The device, \\Device\\Harddisk1\\DR1, has a bad block."
+    },
+    {
+      "source": "Disk",
+      "channel": "System",
+      "event_id": 7,
+      "timestamp": "2026-09-05T15:37:03.963074200Z",
+      "level": "Error",
+      "message": "The device, \\Device\\Harddisk1\\DR1, has a bad block."
+    }
+  ],
+  "correlations": [
+    {
+      "crash": {
+        "timestamp": "2026-09-06T06:37:03.962630100Z",
+        "bugcheck_code": 292,
+        "bugcheck_name": "WHEA_UNCORRECTABLE_ERROR",
+        "parameters": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "faulting_module": null,
+        "faulting_address": null,
+        "attribution": "Undetermined",
+        "dump_path": "C:\\Windows\\Minidump\\090626-01.dmp",
+        "source": "KernelDump"
+      },
+      "window_minutes": 5,
+      "preceding": [
+        {
+          "source": "Microsoft-Windows-WHEA-Logger",
+          "channel": "System",
+          "event_id": 18,
+          "timestamp": "2026-09-06T06:37:03.962630100Z",
+          "level": "Error",
+          "message": "Microsoft-Windows-WHEA-Logger reported event 18."
+        }
+      ],
+      "following": [
+        {
+          "source": "DCOM",
+          "channel": "System",
+          "event_id": 10016,
+          "timestamp": "2026-09-06T06:37:03.962674800Z",
+          "level": "Error",
+          "message": "DCOM reported event 10016."
+        }
+      ]
+    },
+    {
+      "crash": {
+        "timestamp": "2026-09-05T06:37:03.962630100Z",
+        "bugcheck_code": 292,
+        "bugcheck_name": "WHEA_UNCORRECTABLE_ERROR",
+        "parameters": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "faulting_module": null,
+        "faulting_address": null,
+        "attribution": "Undetermined",
+        "dump_path": "C:\\Windows\\Minidump\\090526-01.dmp",
+        "source": "KernelDump"
+      },
+      "window_minutes": 5,
+      "preceding": [
+        {
+          "source": "Microsoft-Windows-WHEA-Logger",
+          "channel": "System",
+          "event_id": 18,
+          "timestamp": "2026-09-05T06:37:03.962630100Z",
+          "level": "Error",
+          "message": "Microsoft-Windows-WHEA-Logger reported event 18."
+        }
+      ],
+      "following": []
+    }
+  ],
+  "changepoint": {
+    "changepoint": "2026-09-05T06:37:03.962630100Z",
+    "crashes_before": 0,
+    "crashes_after": 2,
+    "stable_days_before": 4,
+    "suspect_changes": [],
+    "summary": "Stable for 4 days until 5 Sep 2026. 2 of 2 crashes fall on or after it. No recorded system change lines up with that date."
+  },
+  "collection": []
+}

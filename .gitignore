@@ -1,7 +1,9 @@
-# Rust/Cargo
+# Build output
 /target
-/dist/
-Cargo.lock
+/dist
+
+# Cargo.lock IS committed for this crate.
+# It is a binary, not a library: a reproducible build is the point.
 
 # IDEs
 .idea/
@@ -12,7 +14,5 @@ Cargo.lock
 Thumbs.db
 .DS_Store
 
-# Project artifacts
-/examples/example_report.json
-/examples/example_report.txt
-/conductor/
+# Local scan history written by the tool itself
+*.winsleuth.json

@@ -1,0 +1,156 @@
+
+WinSleuth report — WORKBENCH
+──────────────────────────────────────────────────────────────────────────────
+  Windows 11 Pro (10.0.26100)
+  ASUSTeK COMPUTER INC. TUF GAMING X570-PRO
+  AMD Ryzen 9 3900 12-Core Processor, 32 GB RAM
+  BIOS American Megatrends Inc. 4021 dated 2021-08-10
+  Window: 2026-08-31 06:37 → 2026-09-07 06:37 (7 days)
+
+RANKED CAUSES
+──────────────────────────────────────────────────────────────────────────────
+
+  1. [CERTAIN] Uncorrected hardware errors reported (WHEA)  (99/100)
+     The processor reported hardware errors it could not correct. These come
+     from the CPU, memory controller or a PCIe link, and are not caused by
+     software. The processor reported an uncorrectable hardware error. This is
+     a CPU, memory or bus fault, not a software bug. Recorded 2 time(s). The
+     installed firmware (American Megatrends Inc., version 4021) is about 4.1
+     years old, and this machine is reporting hardware-level errors. Memory
+     compatibility and stability fixes are delivered through firmware updates.
+
+     Evidence:
+       · 2 uncorrected and 1 corrected hardware error(s)
+       · BIOS 4021 dated 2021-08-10
+       · 2026-09-07 00:37 Microsoft-Windows-WHEA-Logger event 17: Microsoft-Windows-WHEA-Logger reported event 17.
+       · 2026-09-05 06:37 Microsoft-Windows-WHEA-Logger event 18: Microsoft-Windows-WHEA-Logger reported event 18.
+       · 2026-09-05 06:37 0x00000124 (WHEA_UNCORRECTABLE_ERROR) parameters 0x0, 0x0, 0x0, 0x0
+
+     What to do:
+       Return CPU and memory to stock settings, including XMP/EXPO, and retest.
+       If errors persist at stock, test memory with a dedicated pass and check
+       that the BIOS is current.
+
+       $ wmic bios get smbiosbiosversion
+         (Check current BIOS version)
+       $ mdsched.exe
+         (Run Windows memory diagnostic)
+     Corroborated by: WheaRule, BugCheckRule, FirmwareAgeRule
+
+  2. [HIGH] Known-vulnerable driver loaded: RTCore64.sys  (87/100)
+     This driver is signed and therefore loads normally, but exposes privileged
+     memory, MSR or port I/O access to any user-mode process. Such drivers are
+     routinely brought along by attackers specifically to disable security
+     software from the kernel, and they are a common source of instability in
+     their own right. The mitigations that would block a known-vulnerable
+     driver from loading are disabled on this machine, and such a driver is
+     loaded right now.
+
+     Evidence:
+       · RTCore64.sys at C:\Windows\System32\drivers\RTCore64.sys
+       · RTCore64.sys (MSI / RivaTuner Statistics Server) exposes arbitrary kernel memory read/write and MSR access from user mode. Loaded builds of this driver are routinely used to disable security software and escalate to kernel. Note this match is by file name — a patched build may carry the same name.
+       · Referenced as CVE-2019-16098
+       · Memory Integrity (HVCI) is switched off, so nothing prevents this driver being loaded and abused.
+       · Memory Integrity (HVCI) is off
+       · the Microsoft vulnerable driver blocklist is off
+
+     What to do:
+       Uninstall the software that installed this driver if you do not need it,
+       and switch on Memory Integrity so Windows blocks known-vulnerable
+       drivers.
+
+       $ Set-ItemProperty 'HKLM:\SYSTEM\CurrentControlSet\Control\CI\Config' -Name VulnerableDriverBlocklistEnable -Value 1
+         (Turn on the vulnerable driver blocklist)
+       $ start windowsdefender://coreisolation
+         (Open Core Isolation settings)
+     Corroborated by: VulnerableDriverRule, SecurityPostureRule
+
+  3. [HIGH] Storage errors on \Device\Harddisk1\DR1  (77/100)
+     The storage stack logged controller resets, bad blocks or timeouts. This
+     is a strong indicator of a failing drive, a marginal cable, or a power
+     delivery problem — and it can corrupt data silently before it stops the
+     machine.
+
+     Evidence:
+       · 2026-09-07 02:37 Disk event 7 (bad block)
+
+     What to do:
+       Back up anything irreplaceable before troubleshooting further. Then
+       check the drive's SMART health and run a file system check.
+
+       $ Get-PhysicalDisk | Select FriendlyName, HealthStatus, OperationalStatus
+         (Check disk health)
+       $ Get-StorageReliabilityCounter -PhysicalDisk (Get-PhysicalDisk)
+         (Read SMART reliability counters)
+       $ chkdsk C: /scan
+         (Check the file system)
+     Corroborated by: DiskErrorRule
+
+  4. [MODERATE] 2 tools competing for hardware sensor access  (64/100)
+     Several drivers are polling the same SMBus/I2C sensor interfaces. These
+     buses do not arbitrate between independent readers, so simultaneous
+     polling causes stalls, dropped transactions and — on some boards — hard
+     hangs.
+
+     Evidence:
+       · HWiNFO64A.SYS [Monitoring] from REALiX
+       · RTCore64.sys [Monitoring] from MSI
+
+     What to do:
+       Keep one monitoring or lighting utility and close the rest, then retest.
+       This is free to try and rules the whole class out quickly.
+     Corroborated by: SensorContentionRule
+
+  5. [MODERATE] 1 device(s) reporting a fault  (60/100)
+     These devices are present but not working. A device that cannot start or
+     that its driver has failed can stall the bus it sits on and take the rest
+     of the system with it.
+
+     Evidence:
+       · USB Root Hub (USB 3.0) — Code 43 [PCI\VEN_TEST&DEV_002B]
+
+     What to do:
+       Work through each device in Device Manager: reinstall its driver, then
+       reseat or disconnect the hardware to see whether stability returns.
+
+       $ devmgmt.msc
+         (Open Device Manager)
+     Corroborated by: DeviceProblemRule
+
+WHEN IT CHANGED
+──────────────────────────────────────────────────────────────────────────────
+  Stable for 4 days until 5 Sep 2026. 2 of 2 crashes fall on or after it. No
+  recorded system change lines up with that date.
+
+SYSTEM CRASHES
+──────────────────────────────────────────────────────────────────────────────
+  2026-09-05 06:37  0x00000124 WHEA_UNCORRECTABLE_ERROR
+      culprit: not established
+  2026-09-06 06:37  0x00000124 WHEA_UNCORRECTABLE_ERROR
+      culprit: not established
+
+KERNEL PROTECTIONS
+──────────────────────────────────────────────────────────────────────────────
+  Memory Integrity (HVCI): OFF
+  Vulnerable driver blocklist: OFF
+  Secure Boot: on
+  ! Memory Integrity (HVCI) is off
+  ! the Microsoft vulnerable driver blocklist is off
+
+DEVICE PROBLEMS
+──────────────────────────────────────────────────────────────────────────────
+  ! USB Root Hub (USB 3.0) — Code 43
+
+THIRD-PARTY KERNEL DRIVERS (3)
+──────────────────────────────────────────────────────────────────────────────
+   nvlddmkm.sys                     Graphics     NVIDIA Corporation
+     v1.2.3.4  embedded (NVIDIA Corporation)
+   HWiNFO64A.SYS                    Monitoring   REALiX
+     v1.2.3.4  embedded (REALiX)
+!! RTCore64.sys                     Monitoring   MSI
+     v1.2.3.4  embedded (MSI)
+     KNOWN VULNERABLE — matched on file name (CVE-2019-16098)
+
+  4 Microsoft-signed OS drivers were checked and are not listed.
+
+Scanned 9 events, 7 drivers, 2 crash dump(s).
